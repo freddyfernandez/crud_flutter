@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-class claseServicio {
-  int Codigo;
-  String Cliente;
-  String NroOrden;
-  String Fecha;
+class ClaseServicio {
+  int CodigoServicio;
+  String NombreCliente;
+  String NumeroOrdenServicio;
+  String FechaProgramada;
   String Linea;
   String Estado;
   String Observaciones;
@@ -14,10 +14,10 @@ class claseServicio {
   String MensajeError;
 
   void inicializar() {
-    this.Codigo = 0;
-    this.Cliente = "";
-    this.NroOrden = "";
-    this.Fecha = "";
+    this.CodigoServicio = 0;
+    this.NombreCliente = "";
+    this.NumeroOrdenServicio = "";
+    this.FechaProgramada = "";
     this.Linea = "";
     this.Estado = "";
     this.Observaciones = "";
@@ -27,11 +27,11 @@ class claseServicio {
     this.MensajeError = "";
   }
 
-  claseServicio(
-      {this.Codigo,
-      this.Cliente,
-      this.NroOrden,
-      this.Fecha,
+  ClaseServicio(
+      {this.CodigoServicio,
+      this.NombreCliente,
+      this.NumeroOrdenServicio,
+      this.FechaProgramada,
       this.Linea,
       this.Estado,
       this.Observaciones,
@@ -40,12 +40,12 @@ class claseServicio {
       this.DescripcionError,
       this.MensajeError});
 
-  factory claseServicio.fromJson(Map<String, dynamic> json) {
-    return claseServicio(
-        Codigo: json["CodigoServicio"],
-        Cliente: json["NombreCliente"],
-        NroOrden: json["NumeroOrdenServicio"],
-        Fecha: json["FechaProgramada"],
+  factory ClaseServicio.fromJson(Map<String, dynamic> json) {
+    return ClaseServicio(
+        CodigoServicio: json["CodigoServicio"],
+        NombreCliente: json["NombreCliente"],
+        NumeroOrdenServicio: json["NumeroOrdenServicio"],
+        FechaProgramada: json["FechaProgramada"],
         Linea: json["Linea"],
         Estado: json["Estado"],
         Observaciones: json["Observaciones"],

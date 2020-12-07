@@ -4,26 +4,28 @@ import 'package:crud_cliente_rest/registraModificaServicio.dart';
 import 'package:flutter/material.dart';
 import 'package:json_table/json_table.dart';
 import 'package:http/http.dart' as http;
-import 'package:async/async.dart' show Future;
+import 'dart:async' show Future;
 
-class listadoServicio extends StatefulWidget {
+class ListadoServicio extends StatefulWidget {
   //DECLARACION DE VARIABLES DE SERVICiO
   String titulo;
-  List<claseServicio> listaServicio = [];
-  int codigoServicio = 0;
+  List<ClaseServicio> listaServicio = [];
+  int codigoServicioSeleccionado = 0;
   String urlPrincipal = 'http://movilesii202022.somee.com/';
   String urlController = "/Servicios/";
+
+  //URL DE TIPO JSON LISTADO OBJETO  "[{}]"
   String urlListado = "/Listar?NombreCliente=";
 
   String jSonClientes =
-      '[{"CodigoServicio": 0,"NombreCliente": "","NumeroOrdenServicio": "","FechaProgramada": "","Linea": "","Estado": "","Observaciones": "","Eliminado": false,"CodigoError": 0,"DescripcionError": "","MensajeError": null}]';
+      '[{"CodigoServicio": 0,"NombreCliente": "","NumeroOrdenServicio": "","FechaProgramada": "","Linea": "","Estado": "","Observaciones": "","Eliminado": false,"CodigoError": 0,"DescripcionError": "","MensajeError": ""}]';
 
-  listadoServicio(this.titulo);
+  ListadoServicio(this.titulo);
   @override
-  State<StatefulWidget> createState() => _listadoServicio();
+  _ListadoServicio createState() => _ListadoServicio();
 }
 
-class _listadoServicio extends State<listadoServicio> {
+class _ListadoServicio extends State<ListadoServicio> {
   //DECLARACION DE VARIABLE DE CONTROLADOR
   final _tfNombreCliente = TextEditingController();
 
@@ -41,8 +43,9 @@ class _listadoServicio extends State<listadoServicio> {
     var data = respuesta.body;
 
     //OBTIENE LOS DATOS JSON A OBJETOS
-    var oListaServiciosTmp = List<claseServicio>.from(
-        json.decode(data).map((x) => claseServicio.fromJson(x)));
+    var oListaServiciosTmp = List<ClaseServicio>.from(
+        json.decode(data).map((x) => ClaseServicio.fromJson(x)));
+
     setState(() {
       //ASIGNA A UNA LISTA VACIA LA LISTA DE OBJETOS
       widget.listaServicio = oListaServiciosTmp;
@@ -61,11 +64,12 @@ class _listadoServicio extends State<listadoServicio> {
   void _nuevoServicio() {
     Navigator.of(context)
         .push(new MaterialPageRoute<Null>(builder: (BuildContext pContexto) {
-      return new registraModificaServicio("", widget.codigoServicio);
+      return new RegistraModificaServicio(
+          "", widget.codigoServicioSeleccionado);
     }));
   }
 
-  void _verRegistroServicio() {}
+  void _VerRegistroServicio() {}
 
   @override
   Widget build(BuildContext context) {
@@ -131,16 +135,16 @@ class _listadoServicio extends State<listadoServicio> {
                 rowHighlightColor: Colors.yellow[500].withOpacity(0.7),
                 paginationRowCount: 10,
                 onRowSelect: (index, map) {
-                  widget.codigoServicio =
+                  widget.codigoServicioSeleccionado =
                       int.parse(map["CodigoServicio"].toString());
                   print("demo" + map["CodigoServicio"].toString());
 
                   Navigator.of(context).push(new MaterialPageRoute<Null>(
                       builder: (BuildContext pContexto) {
-                    return new registraModificaServicio(
-                        "", widget.codigoServicio);
+                    return new RegistraModificaServicio(
+                        "", widget.codigoServicioSeleccionado);
                   }));
-                  print(widget.codigoServicio);
+                  print(widget.codigoServicioSeleccionado);
                 },
               )
             ],

@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _cargarPaginaServicio() {
     Navigator.of(context)
         .push(new MaterialPageRoute<Null>(builder: (BuildContext pContexto) {
-      return new listadoServicio("Consultar Servicio");
+      return new ListadoServicio("Consultar Servicio");
     }));
   }
 
@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many t:',
+              'You have pushed the button this many times:',
             ),
             Text(
               '$_counter',
